@@ -1,0 +1,33 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+apiVersion: v2
+dependencies:
+  - name: eric-oss-conflict-manager-poc
+    alias: eric-oss-conflict-manager
+    repository: https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-drop-helm-local/
+    version: 1.14.0-1
+  - alias: eric-oss-conflict-manager-database-pg
+    condition: eric-oss-conflict-manager-database-pg.enabled
+    name: eric-data-document-database-pg
+    repository: https://arm.sero.gic.ericsson.se/artifactory/proj-adp-gs-all-helm/
+    version: 9.1.0+9
+description: Chart containing OSS Conflict Handling Microservices
+maintainers:
+  - email: PDLTEAMAGO@pdl.internal.ericsson.com
+    name: Team Agora
+name: eric-oss-conflict-handling
+version: 0.2.0

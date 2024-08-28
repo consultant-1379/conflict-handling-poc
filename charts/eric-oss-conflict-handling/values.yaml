@@ -1,0 +1,75 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+global:
+  networkPolicy:
+    enabled: true
+  registry:
+    url: armdocker.rnd.ericsson.se
+  pullSecret: "k8s-registry-secret"
+  security:
+    tls:
+      enabled: false
+  support:
+    ipv6:
+      enabled: false
+  timezone: UTC
+  log:
+    streamingMethod: "direct"
+  labels: {}
+  annotations: {}
+
+labels: {}
+
+eric-oss-conflict-manager:
+  enabled: true
+  eric-data-document-db:
+    name: eric-oss-conflict-manager-database-pg
+    postgresDatabase: conflict_manager_db
+    credentials:
+      kubernetesSecretName: eric-eo-database-pg-secret
+
+eric-oss-conflict-manager-database-pg:
+  log:
+    streamingMethod: "indirect"
+  enabled: true
+  brAgent:
+    enabled: false
+    backupTypeList:
+      - "PLATFORM"
+  credentials:
+    kubernetesSecretName: eric-eo-database-pg-secret
+  postgresDatabase: conflict_manager_db
+  postgresConfig:
+    shared_buffers: "500MB"
+  persistentVolumeClaim:
+    enabled: true
+  resources:
+    postgres:
+      requests:
+        cpu: 300m
+        memory: 1Gi
+      limits:
+        cpu: 1000m
+        memory: 2Gi
+  service:
+    endpoints:
+      postgres:
+        tls:
+          enforced: optional
+
+sef:
+  enabled: false
